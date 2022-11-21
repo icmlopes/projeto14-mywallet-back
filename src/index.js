@@ -8,19 +8,28 @@ import { v4 as uuidV4 } from "uuid"
 dotenv.config()
 
 import signUpRouters from "./routes/signUpRoutes.js"
+import signInRouters from "./routes/signInRoutes.js"
 
 const app = express()
 app.use(express.json())
 app.use(cors())
 app.use(signUpRouters)
+app.use(signInRouters)
 
 
 export const userSchema = joi.object({
-    name: joi.string().required().min(3),
+    name: joi.string().min(3).required(),
     email: joi.string().required(),
     password: joi.string().required(),
-    repeat_password: joi.string().required(),
 })
+
+export const loginSchema = joi.object({
+    email: joi.string().required(),
+    password: joi.string().min(3).required(),
+})
+
+
+
 
 // export const financialSchema = joi.object({
 //     date: joi.string().required(),
@@ -30,8 +39,5 @@ export const userSchema = joi.object({
 // })
 
 
-app.post("/", async (req, res) => {
-    res.send("Ok")
-})
 
 app.listen(5000, () => console.log("Server running in port: 5000"))
