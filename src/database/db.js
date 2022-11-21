@@ -11,7 +11,7 @@ try {
     console.log(err)
 }
 
-const db = mongoClient.db("mywallet")
+const db = mongoClient.db("my-wallet")
 export const usersCollection = db.collection("users")
 export const sessions = db.collection("sessions")
 export const balanceCollection = db.collection("balance")

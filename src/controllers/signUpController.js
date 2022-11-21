@@ -18,6 +18,7 @@ export async function postSignUp(req, res) {
     await usersCollection.insertOne({
       ...user,
       password: passwordHashed,
+      transactions: [],
     });
     res.sendStatus(201);
   } catch (error) {

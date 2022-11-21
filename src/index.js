@@ -4,23 +4,26 @@ import dotenv from "dotenv"
 import joi from "joi"
 import router from "./routes/signUpRoutes.js"
 import bcrypt from "bcrypt"
-import { v4 as uuidV4 } from "uuid"
 dotenv.config()
 
 import signUpRouters from "./routes/signUpRoutes.js"
 import signInRouters from "./routes/signInRoutes.js"
+import balanceRouters from "./routes/balanceRoute.js"
 
 const app = express()
 app.use(express.json())
 app.use(cors())
 app.use(signUpRouters)
 app.use(signInRouters)
+app.use(balanceRouters)
 
+app.use(router)
 
 export const userSchema = joi.object({
     name: joi.string().min(3).required(),
     email: joi.string().required(),
     password: joi.string().required(),
+    repeat_password: joi.string().required(),
 })
 
 export const loginSchema = joi.object({
@@ -28,15 +31,10 @@ export const loginSchema = joi.object({
     password: joi.string().min(3).required(),
 })
 
-
-
-
-// export const financialSchema = joi.object({
-//     date: joi.string().required(),
-//     descripton: joi.string().required().min(1),
-//     income: joi.number().required(),
-//     expense: joi.number().required(),
-// })
+ export const financialSchema = joi.object({
+     descripton: joi.string().required().min(4),
+     number: joi.number().required(),
+    })
 
 
 
